@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% extends "default.html" %}
+{% load static %}
+{% block content %}
+    <section class="maintenances">
+        <h3 class="heading">Проверьте комплектацию и технические характеристики техники Силант</h3>
+        <h3 class="heading">Добро пожаловать: {{ request.user.first_name }}</h3>
+        <h4 class="search__description mt-4">
+            Информация о коплектации и технических характеристиках вашей техники
+        </h4>
+        <h4 class="search__description mt-4">
+            Внесите изменения в данные о проведённом техобслуживании
+        </h4>
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <div>
+                <input class="btn btn-primary" type="submit" value="Добавить">
+            </div>
+        </form>
+    </section>
+
+{% endblock content %}
+

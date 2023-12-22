@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% extends "default.html" %}
+{% load static %}
+{% block content %}
+    <section class="machine"><h4 class="search__description mt-4">
+        Создайте или измените запись
+    </h4>
+        <h3 class="heading">Добро пожаловать: {{ request.user.first_name }}</h3>
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <div>
+                <input class="btn btn-primary mt-4" type="submit" value="Добавить">
+            </div>
+        </form>
+    </section>
+{% endblock content %}

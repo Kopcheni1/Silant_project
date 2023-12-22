@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+{% extends 'default.html' %}
+{% load static %}
+
+{% block content %}
+    <h3 class="heading">Проверьте комплектацию и технические характеристики техники Силант</h3>
+    <form action="{% url 'search' %}">
+        <input type="text" placeholder="Заводской номер" name="search">
+        <span>Например: 00XX</span>
+        <input type="submit" value="Найти">
+    </form>
+
+    <h4 class="search__description mt-4">
+        Информация о коплектации и технических характеристиках вашей техники
+    </h4>
+    <div class="table-responsive mt-4">
+        {% if machine != 'К сожалению ничего не найдено' %}
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <th>Зав. № машины</th>
+                    <th>Модель техники</th>
+                    <th>Модель двигателя</th>
+                    <th>Зав. № двигателя</th>
+                    <th>Модель трансмиссии</th>
+                    <th>Зав. № трансмиссии</th>
+                    <th>Модель ведущего моста</th>
+                    <th>Зав. № ведущего моста</th>
+                    <th>Модель управляемого моста</th>
+                    <th>Зав. № управляемого моста</th>
+                </tr>
+                {% for m in machine %}
+                    <tr>
+                        <td>{{ m.machine_serial_number }}</td>
+                        <td>{{ m.machine_model }}</td>
+                        <td>{{ m.engine_model }}</td>
+                        <td>{{ m.engine_serial_number }}</td>
+                        <td>{{ m.transmission_model }}</td>
+                        <td>{{ m.transmission_serial_number }}</td>
+                        <td>{{ m.driving_axle_model }}</td>
+                        <td>{{ m.driving_axle_serial_number }}</td>
+                        <td>{{ m.steering_axle_model }}</td>
+                        <td>{{ m.steering_axle_serial_number }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        {% if machine == 'К сожалению ничего не найдено' %}
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <th>Зав. № машины</th>
+                    <th>Модель техники</th>
+                    <th>Модель двигателя</th>
+                    <th>Зав. № двигателя</th>
+                    <th>Модель трансмиссии</th>
+                    <th>Зав. № трансмиссии</th>
+                    <th>Модель ведущего моста</th>
+                    <th>Зав. № ведущего моста</th>
+                    <th>Модель управляемого моста</th>
+                    <th>Зав. № управляемого моста</th>
+                </tr>
+                {% for m in machine %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock content %}

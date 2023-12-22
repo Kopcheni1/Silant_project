@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{% extends "default.html" %}
+{% load static %}
+
+{% block content %}
+    <section class="claim">
+        <h3 class="heading"> Общая информация</h3>
+        <form method="GET">
+            {{ filter.form }}
+            <div>
+                <input class="btn btn-primary mt-4" type="submit" value="Фильтр">
+            </div>
+        </form>
+        <h3 class="heading">Добро пожаловать: {{ request.user.first_name }}</h3>
+        <h4 class="search__description mt-4">
+            Выбирите список для редактирования, удаления или добавьте информацию в список
+        </h4>
+        <nav class="btn-wrapper">
+            <ul class="nav-btns">
+                <li class="nav-item">
+                    <a href="/servicecompany/">Сервисная компания</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/machinemodel/">Модель техники</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/enginemodel/">Модель двигателя</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/transmissionmodel/">Модель трансмиссии</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/daxlemodel/">Модель ведущего моста</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/saxlemodel/">Модель управляемтого моста</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/maintenancetype/">Вид технического обслуживания</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/breakdownunit/">Узел отказа</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/recovermethod/">Способ восстановления</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="table-responsive mt-4">
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <th>Название</th>
+                    <th>Описание</th>
+                    <th>Редактировать</th>
+                    <th>Удалить</th>
+                </tr>
+                {% for m in filter.qs %}
+                    <tr id="myUL">
+                        <td>{{ m.name }}</td>
+                        <td>{{ m.description }}</td>
+                        <td><a href="{% url 'edit_machinemodel' m.pk %}">Редактировать</a></td>
+                        <td><a href="{% url 'delete_machinemodel' m.pk %}">Удалить</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="btn btn-primary mt-4">
+                <a href="{% url 'create_machinemodel' %}">Добавить</a>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

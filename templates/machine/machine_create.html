@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% extends 'default.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="machines">
+    <h3 class="heading">Проверьте комплектацию и технические характеристики техники Силант</h3>
+    <h3 class="heading">Добро пожаловать: {{ request.user.first_name }}</h3>
+
+    <h4 class="search__description mt-4">
+        Внесите данные о технике
+    </h4>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+            <input class="btn btn-primary" type="submit" value="Добавить">
+    </form>
+    </section>
+{% endblock content %}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+{% extends 'default.html' %}
+{% load static %}
+
+
+{% block content %}
+    <h3 class="heading">Рекламации</h3>
+
+    {% if is_authenticated %}
+        <h3 class="heading">Добро пожаловать: {{ request.user.first_name }}</h3>
+        <h4 class="search__description mt-4">
+            Детальная информация по рекламациям вашей техники
+        </h4>
+
+        <nav class="btn-wrapper">
+            <ul class="nav-btns">
+                <li>
+                    <h5>Модель техники {{ machine.machine_model }}</h5>
+                </li>
+                <li>
+                    <h5>Заводской номер техники {{ machine.machine_serial_number }}</h5>
+                </li>
+            </ul>
+        </nav>
+        <nav class="btn-wrapper">
+            <ul class="nav-btns">
+                <li class="nav-item">
+                    <a href="/machines/">Общая информация</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/maintenance/">Техническое обслуживание</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/claim/">Рекламации</a>
+                </li>
+                {% if is_manager == 'Менеджер' %}
+                    <li class="nav-item">
+                        <a href="/servicecompany/">Списки</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        <div class="table-responsive mt-4">
+        <table class="table table-striped">
+            <tbody>
+            <tr>
+                <th>Дата отказа</th>
+                <th>Наработка, м/час</th>
+                <th>Узел отказа</th>
+                <th>Описание отказа</th>
+                <th>Способ восстановления</th>
+                <th>Используемые запасные части</th>
+                <th>Дата восстановления</th>
+                <th>Зав. № машины</th>
+                <th>Сервисная компания</th>
+                <th>Изменить</th>
+                <th>Удалить</th>
+            <tr>
+                <td>{{ claim_d.failure_date }}</td>
+                <td>{{ claim_d.operating_time }}</td>
+                <td>{{ claim_d.breakdown_unit }}</td>
+                <td>{{ claim_d.failure_description }}</td>
+                <td>{{ claim_d.recover_method }}</td>
+                <td>{{ claim_d.used_parts }}</td>
+                <td>{{ claim_d.recover_date }}</td>
+                <td>{{ claim_d.machine }}</td>
+                <td>{{ claim_d.service_company }}</td>
+                <td><a href="{% url 'claim_update' claim_d.pk %}">Изменить</a></td>
+                <td><a href="{% url 'claim_delete' claim_d.pk %}">Удалить</a></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>{{ node.description }}</td>
+                <td></td>
+                <td>{{ recover.description }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{ servicecompany.description }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="btn btn-primary">
+            <a href="{% url 'claim_create' %}">Добавить рекламацию</a>
+        </div>
+    {% else %}
+        <div class="search_result empty_result">Для этого действия требуется авторизация</div>
+    {% endif %}
+</div>
+    </div>
+    </div>
+    </div>
+    </section>
+{% endblock content %}

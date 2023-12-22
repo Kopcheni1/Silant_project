@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+{% extends "default.html" %}
+{% load static %}
+
+{% block content %}
+    <h3 class="heading">Проверьте комплектацию и технические характеристики техники Силант</h3>
+
+    <form method="GET">
+        {{ filter.form }}
+        <div>
+            <input class="btn btn-primary" type="submit" value="Фильтр">
+        </div>
+    </form>
+    {% if is_authenticated %}
+        <h3 class="heading">Добро пожаловать: {{ request.user.first_name }}</h3>
+        <h4 class="search__description mt-4">
+            Информация о коплектации и технических характеристиках вашей техники
+        </h4>
+        <nav class="btn-wrapper">
+            <ul class="nav-btns">
+                <li class="nav-item">
+                    <a href="/machines/">Общая информация</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/maintenance/">Техническое обслуживание</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/claim/">Рекламации</a>
+                </li>
+                {% if is_manager == "Менеджер" %}
+                    <li class="nav-item">
+                        <a href="/servicecompany/">Списки</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        <div class="table-responsive mt-4">
+        <table class="table table-striped">
+            <tbody>
+            <tr>
+                <th>Зав. № машины</th>
+                <th>Модель техники</th>
+                <th>Модель двигателя</th>
+                <th>Зав. № двигателя</th>
+                <th>Модель трансмиссии</th>
+                <th>Зав. № трансмиссии</th>
+                <th>Модель ведущего моста</th>
+                <th>Зав. № ведущего моста</th>
+                <th>Модель управляемого моста</th>
+                <th>Зав. № управляемого моста</th>
+                <th>Дата отгрузки с завода</th>
+                <th>Клиент</th>
+                <th>Сервисная компания</th>
+                <th>Детали</th>
+            </tr>
+            {% for m in filter.qs %}
+                {% if m.client == request.user.first_name or m.service_company.name == request.user.first_name or is_manager == "Менеджер" %}
+                    <tr id="myUL">
+                        <td>{{ m.machine_serial_number }}</td>
+                        <td>{{ m.machine_model }}</td>
+                        <td>{{ m.engine_model }}</td>
+                        <td>{{ m.engine_serial_number }}</td>
+                        <td>{{ m.transmission_model }}</td>
+                        <td>{{ m.transmission_serial_number }}</td>
+                        <td>{{ m.driving_axle_model }}</td>
+                        <td>{{ m.driving_axle_serial_number }}</td>
+                        <td>{{ m.steering_axle_model }}</td>
+                        <td>{{ m.steering_axle_serial_number }}</td>
+                        <td>{{ m.from_factory_shipment_date }}</td>
+                        <td>{{ m.client }}</td>
+                        <td>{{ m.service_company }}</td>
+                        <td><a href="{% url "machine_detail" m.pk %}">Детали</a></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+        {% if machine == "К сожалению ничего не найдено" %}
+            <h4 class="search__description mt-4">{{ machine }}</h4>
+        {% endif %}
+    {% else %}
+        <div class="search_result empty_result">
+            <span>
+              Для этого действия требуется авторизация
+            </span>
+        </div>
+    {% endif %}
+</div>
+{% endblock content %}

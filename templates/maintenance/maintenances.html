@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% extends 'default.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="maintenances">
+        <h3 class="heading">Проверьте комплектацию и технические характеристики техники Силант</h3>
+        <h3 class="heading">Добро пожаловать: {{ request.user.first_name }}</h3>
+        <div class="maintenances__form">
+            <form method="GET">
+                {{ filter.form }}
+                <input class="btn btn-primary" type="submit" value="Фильтр">
+            </form>
+        </div>
+        <h4 class="search__description mt-4">
+            Информация о коплектации и технических характеристиках вашей техники
+        </h4>
+
+        <nav class="btn-wrapper">
+            <ul class="nav-btns">
+                <li class="nav-item">
+                    <a href="/machines/">Общая информация</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/maintenance/">Техническое обслуживание</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/claim/">Рекламации</a>
+                </li>
+                {% if is_manager == 'Менеджер' %}
+                    <li class="nav-item">
+                        <a href="/servicecompany/">Списки</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        <div class="table-responsive mt-4">
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <th>Вид ТО</th>
+                    <th>Дата проведения ТО</th>
+                    <th>Наработка, м/час</th>
+                    <th>№ заказ-наряда</th>
+                    <th>дата заказ-наряда</th>
+                    <th>Сервисная компания</th>
+                    <th>Зав. № машины</th>
+                    <th>Детали</th>
+                    {% for t in filter.qs %}
+                        <tr>
+                            <td>{{ t.type_of_maintenance }}</td>
+                            <td>{{ t.maintenance_date }}</td>
+                            <td>{{ t.operating_time }}</td>
+                            <td>{{ t.order_number }}</td>
+                            <td>{{ t.order_number }}</td>
+                            <td>{{ t.maintenance_organization }}</td>
+                            <td>{{ t.machine }}</td>
+                            <td><a href="{% url 'maintenance_detail' t.pk %}">Детали</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock content %}

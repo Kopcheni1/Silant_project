@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% extends "default.html" %}
+{% load static %}
+{% block content %}
+
+    <section class="claim">
+        <h3 class="heading"> Общая информация</h3>
+        <h3 class="heading">Добро пожаловать: {{ request.user.first_name }}</h3>
+        <h4 class="search__description mt-4">
+            Вы действительно хотите удалить данные из списка?
+        </h4>
+        <div class="table-responsive mt-4">
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <th>Название</th>
+                    <th>Описание</th>
+                </tr>
+                <tr>
+                    <td>{{ recovermethod.name }}</td>
+                    <td>{{ recovermethod.description }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <form method="POST" class="mt-4">
+                {% csrf_token %}
+                <input class="btn btn-danger" type="submit" value="Подтвердить удаление">
+            </form>
+        </div>
+    </section>
+{% endblock content %}

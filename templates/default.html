@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Machines</title>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    {% load static %}
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/font.css' %}" rel="stylesheet"/>
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <div class="header__wrapper">
+            <div class="header__branding branding">
+                <div class="branding__logo"><img src="{% static 'assets/Logo.jpg' %}" alt="Logo" class="branding__img">
+                </div>
+                <div class="branding__text"><a href="/machines">Электронная сервисная книжка "Мой Силант"</a></div>
+            </div>
+
+            <div class="header__content d-flex">
+                <div class="header__contacts contacts d-flex">
+                    <a href="tel:+7-8352-20-12-09">+7-8352-20-12-09</a>
+                    <a href="#">telegram</a>
+                </div>
+                {% if is_authenticated %}
+                <a href="http://localhost:8000/sign/logout" class="header__auth">Выйти</a>
+                {% else %}
+                <a href="http://localhost:8000/sign/login" class="header__auth">Авторизация</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</header>
+<main><div class="container">
+    {% block content%}
+    {% endblock content%}
+</div>
+</main>
+<footer class="footer">
+    <div class="container">
+        <div class="footer__wrapper">
+           <div class="footer__contacts contacts d-flex">
+            <a href="tel:+7-8352-20-12-09">+7-8352-20-12-09</a>
+            <a href="#">telegram</a>
+        </div>
+        <div class="footer__copyright">Мой Силант 2022</div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
