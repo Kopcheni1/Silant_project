@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% extends 'default.html' %}
+{% load static %}
 <html lang="en">
-<body>
 {% block content %}
 <h2> Войти в систему </h2>
 <form method="post" action="{% url 'login' %}">
@@ -20,5 +20,4 @@
 <input type="submit" value="Войти">
 </form>
 {% endblock content %}
-</body>
 </html>
