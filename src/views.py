@@ -245,7 +245,7 @@ def machine_by_user(request):
                 service_list = ServiceCompany.objects.filter(name=request.user.first_name)
                 if service_list.exists():
                     service = ServiceCompany.objects.get(name=request.user.first_name)
-                    machine = Machine.objects.filter(service_company=servicecompany.id)
+                    machine = Machine.objects.filter(service_company=service.id)
                 else:
                     machine = "К сожалению ничего не найдено"
         context = {"machine": machine,
