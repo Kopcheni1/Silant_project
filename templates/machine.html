@@ -4,7 +4,6 @@
 
 {% block content %}
     <h3 class="heading">Проверьте комплектацию и технические характеристики техники Силант</h3>
-
     <form method="GET">
         {{ filter.form }}
         <div>
@@ -55,7 +54,7 @@
             </tr>
             {% for m in filter.qs %}
                 {% if m.client == request.user.first_name or m.service_company.name == request.user.first_name or is_manager == "Менеджер" %}
-                    <tr id="myUL">
+                    <tr>
                         <td>{{ m.machine_serial_number }}</td>
                         <td>{{ m.machine_model }}</td>
                         <td>{{ m.engine_model }}</td>

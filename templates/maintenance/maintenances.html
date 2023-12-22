@@ -5,13 +5,13 @@
 {% block content %}
     <section class="maintenances">
         <h3 class="heading">Проверьте комплектацию и технические характеристики техники Силант</h3>
-        <h3 class="heading">Добро пожаловать: {{ request.user.first_name }}</h3>
         <div class="maintenances__form">
             <form method="GET">
                 {{ filter.form }}
                 <input class="btn btn-primary" type="submit" value="Фильтр">
             </form>
         </div>
+        <h3 class="heading mt-4">Добро пожаловать: {{ request.user.first_name }}</h3>
         <h4 class="search__description mt-4">
             Информация о коплектации и технических характеристиках вашей техники
         </h4>
@@ -48,16 +48,18 @@
                     <th>Зав. № машины</th>
                     <th>Детали</th>
                     {% for t in filter.qs %}
-                        <tr>
-                            <td>{{ t.type_of_maintenance }}</td>
-                            <td>{{ t.maintenance_date }}</td>
-                            <td>{{ t.operating_time }}</td>
-                            <td>{{ t.order_number }}</td>
-                            <td>{{ t.order_number }}</td>
-                            <td>{{ t.maintenance_organization }}</td>
-                            <td>{{ t.machine }}</td>
-                            <td><a href="{% url 'maintenance_detail' t.pk %}">Детали</a></td>
-                        </tr>
+                        {% if t.client == request.user.first_name or t.service_company.name == request.user.first_name or is_manager == "Менеджер" %}
+                            <tr>
+                                <td>{{ t.type_of_maintenance }}</td>
+                                <td>{{ t.maintenance_date }}</td>
+                                <td>{{ t.operating_time }}</td>
+                                <td>{{ t.order_number }}</td>
+                                <td>{{ t.order_number }}</td>
+                                <td>{{ t.maintenance_organization }}</td>
+                                <td>{{ t.machine }}</td>
+                                <td><a href="{% url 'maintenance_detail' t.pk %}">Детали</a></td>
+                            </tr>
+                        {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
